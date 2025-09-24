@@ -71,3 +71,8 @@ kustomize build 03-overlays/environments/dev/
 # Build prod overlay
 kustomize build 03-overlays/environments/prod/
 ```
+
+
+
+## Future Addition
+We are building a scenario to demonstrate how Kustomize components can serve as reusable, pluggable parts of configuration that can be optionally applied to a base configuration. This allows teams to modularize features—like logging, monitoring, or network policies—without modifying the core application definition.
