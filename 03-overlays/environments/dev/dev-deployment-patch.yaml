@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapp-deployment
+  namespace: sampleapp
+  labels:
+    app: sampleapp
+spec:
+  template:
+    spec:
+      containers:
+      - name: sampleapp
+        image: docker.io/vasudevdchavan/alpine:2025
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+      imagePullSecrets:
+      - name: dev-registry-secret

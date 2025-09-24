@@ -1,0 +1,42 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: baseapplication
+namespace: sampleapp
+
+resources:
+  - ../../baseapplication
+
+nameSuffix: -prod
+namePrefix: prod-
+
+## Adding Labels to all resources.
+commonLabels:
+  app: prod
+  env: prod
+
+## Adding Lables to configmap and secrets
+generatorOptions:
+  labels:
+    env: prod
+
+
+replicas:
+  - name: prod-sampleapp-deployment-prod
+    count: 3
+
+patchesStrategicMerge:
+  - prod-deployment-patch.yaml
+
+
+secretGenerator:
+  - name: registry-secret
+    type: docker-registry
+    literals:
+      - docker-username="vasudevdchavan"
+      - docker-password="Gadag@1234"
+      - docker-server="docker.io"
+      - docker-email="vasudevdchavan@gmail.com"
+    options:
+      disableNameSuffixHash: true
